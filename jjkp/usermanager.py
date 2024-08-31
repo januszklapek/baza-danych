@@ -4,10 +4,8 @@ from user import User
 
 
 class UserManager:
-    """Klasa zarządzająca użytkownikami (kompozycja)."""
     
     def load_users(self):
-        """Wczytuje dane użytkowników z pliku JSON."""
         try:
             with open('users.json', 'r') as file:
                 return {username: UserBase(**data) for username, data in json.load(file).items()}
@@ -16,7 +14,6 @@ class UserManager:
             return {}
 
     def save_users(self, users):
-        """Zapisuje zaktualizowane dane użytkowników do pliku JSON."""
         try:
             with open('users.json', 'w') as file:
                 json.dump({username: user.to_dict() for username, user in users.items()}, file, indent=4)
@@ -24,7 +21,6 @@ class UserManager:
             print(f"Wystąpił błąd podczas zapisywania danych: {e}")
 
     def view_all_users(self):
-        """Wyświetla listę wszystkich użytkowników."""
         users = self.load_users()
         if not users:
             print("Nie udało się wczytać użytkowników.")
@@ -35,7 +31,6 @@ class UserManager:
             print(f"Użytkownik: {username}, Rola: {details.role}")
 
     def add_new_user(self):
-        """Dodaje nowego użytkownika."""
         users = self.load_users()
 
         new_username = input("Podaj nazwę nowego użytkownika: ")
@@ -58,7 +53,6 @@ class UserManager:
         return f"Użytkownik {new_username} został dodany."
 
     def update_user_data(self, admin_username, target_username, new_data):
-        """Aktualizowanie danych użytkownika (tylko dla administratora)."""
         users = self.load_users()
 
         if users[admin_username].role != 'admin':
