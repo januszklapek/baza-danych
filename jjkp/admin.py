@@ -3,7 +3,6 @@ from usermanager import UserManager
 
 
 class Admin(UserBase):
-    """Klasa administratora z uprawnieniami do zarządzania użytkownikami."""
     def __init__(self, username, password):
         super().__init__(username, password, 'admin')
         self.user_manager = UserManager()
